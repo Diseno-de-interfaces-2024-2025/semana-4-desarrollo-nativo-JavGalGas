@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -47,41 +48,34 @@ fun MyScreen(modifier: Modifier=Modifier) {
     var paisActualizado by remember { mutableStateOf("") }
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Column (modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        Column (modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.fillMaxWidth().background(Color(0,20,39)).height(100.dp),
                 contentAlignment = Alignment.Center) {
                 Text(text = "Screen",
-                    fontSize = 40.sp,
+                    fontSize = 36.sp,
                     color = Color.White)
             }
             Row(modifier = Modifier.fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .background(Color.LightGray), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                .background(Color.LightGray).padding(10.dp), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                 repeat(15) {
-//                    Button(modifier = Modifier.size(75.dp).padding(10.dp), onClick = {}, colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)) {}
                     Box(
                         modifier = Modifier
-                            .size(75.dp) // Tamaño del círculo
+                            .size(65.dp) // Tamaño del círculo
                             .clip(CircleShape) // Recorte con forma de círculo
-                            .background(Color.DarkGray) // Color de fondo
-
+                            .background(Color(0xFF56494e)) // Color de fondo
                     )
                 }
             }
-            Row (modifier = Modifier.height(230.dp)) {
-                Button(
-                    modifier = Modifier.weight(1f).fillMaxSize().padding(10.dp),
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(72, 159,181)
-                    ),
-                    shape = RoundedCornerShape(15.dp)
-                ) {}
+            Row (modifier = Modifier.height(240.dp)) {
+                Box(modifier = Modifier.weight(1f).fillMaxSize().padding(20.dp).clip(
+                    RoundedCornerShape(15.dp)
+                ).background(Color(0xFF489fb5)))
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .verticalScroll(rememberScrollState())
-                        .padding(8.dp)
+                        .padding(top=8.dp, end=16.dp)
 
                 ) {
                     Text(
@@ -106,12 +100,10 @@ fun MyScreen(modifier: Modifier=Modifier) {
                     )
                 }
             }
-
-
             Box(modifier = Modifier.fillMaxWidth().height(80.dp),
                 contentAlignment = Alignment.Center) {
                 Text(text = "Formulario",
-                    fontSize = 40.sp)
+                    fontSize = 36.sp)
             }
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -121,7 +113,7 @@ fun MyScreen(modifier: Modifier=Modifier) {
                         label = {Text("Nombre")
                         }
                     )
-                    Text(modifier = Modifier.weight(1f),text = nombreActualizado)
+                    Text(modifier = Modifier.weight(1f),text = nombreActualizado, textAlign = TextAlign.Center)
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -130,7 +122,7 @@ fun MyScreen(modifier: Modifier=Modifier) {
                         onValueChange = {email = it},
                         label = {Text("Email")}
                     )
-                    Text(modifier = Modifier.weight(1f), text= emailActualizado)
+                    Text(modifier = Modifier.weight(1f), text= emailActualizado, textAlign = TextAlign.Center)
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -139,7 +131,7 @@ fun MyScreen(modifier: Modifier=Modifier) {
                         onValueChange = {direccion = it},
                         label = {Text("Dirección")}
                     )
-                    Text(modifier = Modifier.weight(1f), text= direccionActualizado)
+                    Text(modifier = Modifier.weight(1f), text= direccionActualizado, textAlign = TextAlign.Center)
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -148,44 +140,9 @@ fun MyScreen(modifier: Modifier=Modifier) {
                         onValueChange = {pais = it},
                         label = {Text("País")}
                     )
-                    Text(modifier = Modifier.weight(1f), text= paisActualizado)
+                    Text(modifier = Modifier.weight(1f), text= paisActualizado, textAlign = TextAlign.Center)
                 }
             }
-//            Row(Modifier.fillMaxWidth().height(300.dp)) {
-//                Column (Modifier.weight(1f)) {
-//                    TextField(
-//                        value = nombre,
-//                        onValueChange = {nombre = it},
-//                        label = {Text("Nombre")}
-//                    )
-//                    Spacer(modifier = Modifier.height(15.dp))
-//                    TextField(
-//                        value = email,
-//                        onValueChange = {email = it},
-//                        label = {Text("Email")}
-//                    )
-//                    Spacer(modifier = Modifier.height(15.dp))
-//                    TextField(
-//                        value = direccion,
-//                        onValueChange = {direccion = it},
-//                        label = {Text("Dirección")}
-//                    )
-//                    Spacer(modifier = Modifier.height(15.dp))
-//                    TextField(
-//                        value = pais,
-//                        onValueChange = {pais = it},
-//                        label = {Text("País")}
-//                    )
-//                }
-//                Column (modifier = Modifier.weight(1f).padding(top = 20.dp),
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                    verticalArrangement = Arrangement.spacedBy(45.dp)) {
-//                    Text(nombreActualizado)
-//                    Text(emailActualizado)
-//                    Text(direccionActualizado)
-//                    Text(paisActualizado)
-//                }
-//            }
             Button(
                 onClick = {
                     nombreActualizado = nombre
@@ -193,7 +150,7 @@ fun MyScreen(modifier: Modifier=Modifier) {
                     direccionActualizado = direccion
                     paisActualizado = pais
                 },
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(top= 10.dp),
                 colors = ButtonDefaults.buttonColors(
                     Color(102,80,164)
                 )
